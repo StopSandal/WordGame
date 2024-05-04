@@ -19,10 +19,14 @@ namespace WordGame.Menus
             Items = new List<MenuItem>();
         }
 
-        protected ConsoleMenu(string menuTitle, IList<MenuItem> items) : base()
+        protected ConsoleMenu(string menuTitle, IList<MenuItem> items) : this()
         {
             MenuTitle = menuTitle;
             Items = items;
+        }
+        protected ConsoleMenu(string menuTitle) : this()
+        {
+            MenuTitle = menuTitle;
         }
 
         protected abstract void PrintHeader();

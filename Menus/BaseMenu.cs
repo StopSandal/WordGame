@@ -14,9 +14,14 @@ namespace WordGame.Menus
         {
         }
 
+
         public BaseMenu() : base()
         {
             InitMenuItemList();
+        }
+
+        public BaseMenu(string menuTitle) : base(menuTitle)
+        {
         }
 
         protected override void PrintHeader()
