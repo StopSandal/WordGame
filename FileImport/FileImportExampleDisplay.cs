@@ -44,7 +44,5 @@ namespace WordGame.FileImport
             stepInto();
             NextStep();
         }
-
-
     }
 }

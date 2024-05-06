@@ -32,6 +32,11 @@ namespace WordGame.Menus
                     "Import example", 
                     FileImportExampleDisplay.StartDisplay
                     ));
+            AddMenuItem(
+                new MenuItem(
+                    "Import file",
+                    new ImportMenu().OpenMenu
+                    ));
             base.InitMenuItemList();
         }
     }
