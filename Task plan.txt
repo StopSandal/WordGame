@@ -14,7 +14,7 @@
     * Real: -
   2.4 Get a dictionary file
     * Estimated: 35 min
-    * Real: -
+    * Real: 25 min
   2.5 shaffle words
     * Estimated: 1 h
     * Real: -    

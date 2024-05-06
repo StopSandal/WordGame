@@ -1,6 +1,4 @@
-﻿using CsvHelper;
-using CsvHelper.Configuration;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -15,13 +13,13 @@ namespace WordGame.FileImport
     internal static class FileImportManager
     {
         static readonly string AppName = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
+        static readonly string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static async void SaveFile(string filename, Difficulty difficulty)
         {
             try
             {
                 Task<IList<string>> loadFile = LoadFileAsync(filename);
 
-                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string dictionaryPath = Path.Combine(
                     appDataPath,
                     AppName,
@@ -50,7 +48,7 @@ namespace WordGame.FileImport
             Console.ReadLine();
         }
         private static async Task<IList<string>> LoadFileAsync(string filename) {
-            List<string> words = new List<string>();
+            var words = new List<string>();
             try
             {
                 var lineList = File.ReadLinesAsync(filename);
@@ -66,10 +64,26 @@ namespace WordGame.FileImport
             }
             return words;
         }
-        
-        public static void GetGameFile(Difficulty difficulty) 
+        private static string GetGameFilePath(Difficulty difficulty) 
         { 
-        
+            string dictionaryPath = Path.Combine(
+                appDataPath,
+                AppName,
+                "dictionary",
+                difficulty.ToString()
+                );
+            var files = new DirectoryInfo(dictionaryPath).GetFiles();
+            int index = new Random(DateTime.Now.GetHashCode()).Next(0,files.Length);
+
+            return Path.Combine(dictionaryPath, files[index].Name);
+        }
+        public static IList<string> GetWordDictionary(Difficulty difficulty) 
+        {
+            
+            using (var fileStream = new FileStream(GetGameFilePath(difficulty), FileMode.Open))
+            {
+                return JsonSerializer.Deserialize<IList<string>>(fileStream);
+            }
         }
     }
 }
