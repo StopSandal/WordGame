@@ -23,7 +23,7 @@ namespace WordGame.Menus
         }
         private void OpenExitMenu()
         {
-            BaseMenu exitMenu = new BaseMenu("Do you want to close the app?");
+            var exitMenu = new BaseMenu("Do you want to close the app?");
             exitMenu.AddMenuItem(new MenuItem("Yes", () => Environment.Exit(0)));
             exitMenu.AddMenuItem(new MenuItem("No", exitMenu.CloseMenu));
             exitMenu.OpenMenu();
@@ -38,7 +38,7 @@ namespace WordGame.Menus
         }
         private void OpenImportMenu()
         {
-            throw new NotImplementedException();
+            new FileImportMenu().OpenMenu();
         }
         private void OpenResultsMenu() 
         { 
