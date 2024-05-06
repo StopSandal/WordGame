@@ -34,6 +34,7 @@ namespace WordGame.Menus
         protected abstract void DoMenuAction();
         public virtual void OpenMenu()
         {
+            IsClosed = false;
             while (!IsClosed)
             {
                 PrintHeader();
