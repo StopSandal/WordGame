@@ -33,7 +33,7 @@ namespace WordGame.Menus
         {
             string filePath = FilePathReader.GetFilePath();
             if (!string.IsNullOrEmpty(filePath))
-                FileImportManager.SaveFile(filePath, difficulty);
+               FileImportManager.SaveFile(filePath, difficulty).Wait();
         }
     }
 }

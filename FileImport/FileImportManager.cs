@@ -14,7 +14,7 @@ namespace WordGame.FileImport
     {
         static readonly string AppName = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
         static readonly string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        public static async void SaveFile(string filename, Difficulty difficulty)
+        public static async Task SaveFile(string filename, Difficulty difficulty)
         {
             try
             {
