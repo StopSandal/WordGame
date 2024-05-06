@@ -34,6 +34,17 @@ namespace WordGame.FileImport
                 string filePath = Path.Combine(dictionaryPath, $"{Guid.NewGuid()}.json");
 
                 var words = await loadFile;
+                try
+                {
+                    IsDictionaryRight(words);
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine($"Dictionary error: {ex.Message}");
+                    Console.WriteLine("Press Enter to continue...");
+                    Console.ReadLine();
+                    return;
+                }
                 using ( var fileStream = new FileStream(filePath,FileMode.OpenOrCreate))
                 {
                     JsonSerializer.Serialize<IList<string>>(fileStream, words);
@@ -46,6 +57,16 @@ namespace WordGame.FileImport
             }
             Console.WriteLine("Press Enter to continue...");
             Console.ReadLine();
+        }
+        private static bool IsDictionaryRight(IList<string> dictionary) 
+        {
+            if (!dictionary.Any())
+                throw new ArgumentException("File have no words");
+            if(dictionary.Count < 300)
+                throw new ArgumentException("File have less then 300 words");
+            if (dictionary.Where(x=>x.Length<2).Any())
+                throw new ArgumentException("File have too short words (less then 2 letters)");
+            return true;
         }
         private static async Task<IList<string>> LoadFileAsync(string filename) {
             var words = new List<string>();

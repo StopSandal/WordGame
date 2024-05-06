@@ -39,7 +39,7 @@
     * Real: 2,25 h
   3.3 Add file dictionary check on word length and words count
     * Estimated: 20 min
-    * Real: -
+    * Real: - 16 min
   3.4 Create test files and test system
     * Estimated: 1 h
     * Real: -
