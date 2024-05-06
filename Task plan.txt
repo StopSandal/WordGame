@@ -1,0 +1,55 @@
+
+1. Add Menu with screen clearing, Base menu hierarchy and Exit with confirmation
+  * Estimated: 45 min
+  * Real: 3,5 h
+2. Gameplay
+  2.1 think about Game hierarchy classes 
+    * Estimated: 1 h
+    * Real: -
+  2.2 add Pre-game display
+    * Estimated: 1,5 h
+    * Real: -
+  2.3 Getting settings from file
+    * Estimated: 10 min
+    * Real: -
+  2.4 Get a dictionary file
+    * Estimated: 35 min
+    * Real: -
+  2.5 shaffle words
+    * Estimated: 1 h
+    * Real: -    
+  2.7 start game with settings
+    * Estimated: 20 min
+    * Real: -
+  2.8 add Timer with auto refresh, which will not clear user input
+    * Estimated: 3 h
+    * Real: -  
+  2.9 end game message with score counting
+    * Estimated: 1 h
+    * Real: -
+  2.10 menu to save results
+    * Estimated: 1 h
+    * Real: -
+3. Word Import
+  3.1 Main import menu with import rules example 
+    * Estimated: 30 min
+    * Real: 35 min
+  3.2 Add Import menu with difficulty choose, add file reading from csv with saving in app folder in Json format
+    * Estimated: 1 h
+    * Real: 2,25 h
+  3.3 Add file dictionary check on word length and words count
+    * Estimated: 20 min
+    * Real: -
+  3.4 Create test files and test system
+    * Estimated: 1 h
+    * Real: -
+ 4. Results
+   4.1 Add connection between MS SQl and EF
+    * Estimated: 1 h
+    * Real: -
+   4.2 Menu to see results
+    * Estimated: 30 min
+    * Real: -
+   4.3 Results seeing with sort options
+    * Estimated: 25 min
+    * Real: -
