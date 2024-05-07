@@ -49,7 +49,9 @@ namespace WordGame.Menus
         }
         private void StartGame()
         {
-            new Game.Game().Start();
+            var game = new Game.Game();
+            game.Start();
+            new EndGameMenu(game.Result).OpenMenu();
         }
     }
 }

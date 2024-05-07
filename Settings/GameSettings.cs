@@ -17,8 +17,7 @@ namespace WordGame.Settings
             if(settings == null)
             {
                 settings = JsonManager.GetFromFile<Settings>("GameSettings.ini");
-                if (settings == null)
-                    settings = new Settings();
+                settings ??= new Settings();
             }
             return settings;
         }

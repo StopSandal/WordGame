@@ -1,6 +1,7 @@
 ﻿using WordGame.Data;
 using WordGame.FileImport;
 using WordGame.InputReaders;
+using WordGame.Menus;
 using WordGame.Settings;
 
 
@@ -8,19 +9,19 @@ namespace WordGame.Game
 {
     internal sealed class Game
     {
-        private Settings.Settings settings;
-        private GameResultItem result;
-        private IList<string> wordDictionary;
+        private readonly Settings.Settings settings;
+        public GameResultItem Result { get; }
+        private readonly IList<string> wordDictionary;
         public Game()
         {
             settings = GameSettings.GetSettings();
-            result = new GameResultItem();
+            Result = new GameResultItem(settings.GetDifficulty());
             wordDictionary = FileImportManager.GetWordDictionary(settings.GetDifficulty());
         }
         public void Start() 
         {
             PreGameDisplay();
-            Task timer = StartTimer(5);
+            Task timer = StartTimer(settings.GetGameTime());
             timer.ContinueWith(t => { EndGame(); });
             while (!timer.IsCompleted)
             {
@@ -55,25 +56,26 @@ namespace WordGame.Game
 
             if (userInput == word) 
             {
-                result.Score += settings.GetWordCount();
+                Result.Score += settings.GetWordCount();
             }
 
         }
         private void EndGame()
         {
             Console.Clear();
-            Console.WriteLine("Game End");
-            Console.WriteLine($"Total score: {result.Score}");
+            Console.WriteLine("Time is up");
+            Console.WriteLine($"Total score: {Result.Score}");
+            Console.WriteLine("Press Enter to continue...");
         }
         private async Task StartTimer(int startTime)
         {
             int currentTime = startTime;
             while (currentTime > 0)
             {
-                var position = Console.GetCursorPosition();
+                var (Left, Top) = Console.GetCursorPosition();
                 Console.SetCursorPosition(0,0);
                 Console.Write($"Time Left: {currentTime:D2}");
-                Console.SetCursorPosition(position.Left,position.Top);
+                Console.SetCursorPosition(Left,Top);
                 await Task.Delay(1000);
                 currentTime--;
             }
@@ -84,9 +86,7 @@ namespace WordGame.Game
             for (int i = 0; i < needed; i++)
             {
                 var index = random.Next(i, list.Count);
-                var item = list[index];
-                list[index] = list[i];
-                list[i] = item;
+                (list[i], list[index]) = (list[index], list[i]);
             }
 
             return string.Join(" ",list.Take(needed));
