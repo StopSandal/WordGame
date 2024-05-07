@@ -23,7 +23,7 @@
     * Real: -
   2.8 add Timer with auto refresh, which will not clear user input
     * Estimated: 3 h
-    * Real: -  
+    * Real: -  2 h 14 min
   2.9 end game message with score counting
     * Estimated: 1 h
     * Real: -

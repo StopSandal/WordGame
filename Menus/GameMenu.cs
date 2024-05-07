@@ -49,7 +49,7 @@ namespace WordGame.Menus
         }
         private void StartGame()
         {
-            throw new NotImplementedException();
+            new Game.Game().Start();
         }
     }
 }
