@@ -1,11 +1,12 @@
 ﻿using WordGame.Data;
 using WordGame.FileImport;
+using WordGame.InputReaders;
 using WordGame.Settings;
 
 
 namespace WordGame.Game
 {
-    internal class Game
+    internal sealed class Game
     {
         private Settings.Settings settings;
         private GameResultItem result;
@@ -19,7 +20,8 @@ namespace WordGame.Game
         public void Start() 
         {
             PreGameDisplay();
-            Task timer = StartTimer(settings.GetGameTime());
+            Task timer = StartTimer(5);
+            timer.ContinueWith(t => { EndGame(); });
             while (!timer.IsCompleted)
             {
                 UserAction();
@@ -59,7 +61,9 @@ namespace WordGame.Game
         }
         private void EndGame()
         {
-
+            Console.Clear();
+            Console.WriteLine("Game End");
+            Console.WriteLine($"Total score: {result.Score}");
         }
         private async Task StartTimer(int startTime)
         {
@@ -68,7 +72,7 @@ namespace WordGame.Game
             {
                 var position = Console.GetCursorPosition();
                 Console.SetCursorPosition(0,0);
-                Console.Write($"Time Left: {currentTime}");
+                Console.Write($"Time Left: {currentTime:D2}");
                 Console.SetCursorPosition(position.Left,position.Top);
                 await Task.Delay(1000);
                 currentTime--;

@@ -26,7 +26,7 @@
     * Real: 2 h 14 min
   2.9 end game message with score counting
     * Estimated: 1 h
-    * Real: -
+    * Real: 1 h
   2.10 menu to save results
     * Estimated: 1 h
     * Real: -
