@@ -1,9 +1,7 @@
-﻿
-using System.Diagnostics.Tracing;
-using System.Timers;
-using WordGame.Data;
+﻿using WordGame.Data;
+using WordGame.FileImport;
 using WordGame.Settings;
-using Timer = System.Timers.Timer;
+
 
 namespace WordGame.Game
 {
@@ -11,10 +9,12 @@ namespace WordGame.Game
     {
         private Settings.Settings settings;
         private GameResultItem result;
+        private IList<string> wordDictionary;
         public Game()
         {
             settings = GameSettings.GetSettings();
             result = new GameResultItem();
+            wordDictionary = FileImportManager.GetWordDictionary(settings.GetDifficulty());
         }
         public void Start() 
         {
@@ -34,7 +34,7 @@ namespace WordGame.Game
         }
         private void UserAction()
         {
-            var word = GetWord();
+            var word = GetRandomWords(wordDictionary,settings.GetWordCount());
             Console.SetCursorPosition(0, 1);
             Console.WriteLine("Write this words");
             Console.WriteLine("----------------------------");
@@ -45,8 +45,7 @@ namespace WordGame.Game
             int currentLine = Console.CursorTop;
             var userInput = Console.ReadLine();
 
-            Console.SetCursorPosition(0, currentLine); // cleaning up all code lines below
-            for (int i = currentLine + 1; i < Console.WindowHeight; i++) 
+            for (int i = currentLine; i < Console.WindowHeight; i++) // cleaning up all code lines below
             {
                 Console.SetCursorPosition(0, i);
                 Console.Write(new string(' ', Console.WindowWidth));
@@ -75,9 +74,18 @@ namespace WordGame.Game
                 currentTime--;
             }
         }
-        private string GetWord()
+        public string GetRandomWords<T>(IList<T> list, int needed)
         {
-            return "sadasd";
+            var random = new Random();
+            for (int i = 0; i < needed; i++)
+            {
+                var index = random.Next(i, list.Count);
+                var item = list[index];
+                list[index] = list[i];
+                list[i] = item;
+            }
+
+            return string.Join(" ",list.Take(needed));
         }
     }
 }
