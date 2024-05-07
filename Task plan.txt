@@ -5,13 +5,13 @@
 2. Gameplay
   2.1 think about Game hierarchy classes 
     * Estimated: 1 h
-    * Real: -
+    * Real: 15 min
   2.2 add Pre-game display
     * Estimated: 1,5 h
-    * Real: -
+    * Real: 43 min
   2.3 Getting settings from file
     * Estimated: 10 min
-    * Real: -
+    * Real: 2 min
   2.4 Get a dictionary file
     * Estimated: 35 min
     * Real: 25 min
