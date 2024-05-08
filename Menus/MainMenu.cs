@@ -41,8 +41,8 @@ namespace WordGame.Menus
             new FileImportMenu().OpenMenu();
         }
         private void OpenResultsMenu() 
-        { 
-            throw new NotImplementedException(); 
+        {
+            new ResultsMenu().OpenMenu(); 
         }
     }
 }

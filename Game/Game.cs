@@ -64,6 +64,7 @@ namespace WordGame.Game
         }
         private void EndGame()
         {
+            Result.dateTime = DateTime.Now;
             Console.Clear();
             Console.WriteLine("Time is up");
             Console.WriteLine($"Total score: {Result.Score}");
