@@ -30,7 +30,7 @@ namespace WordGame.Menus
         }
         private void StartGame()
         {
-            throw new NotImplementedException();
+            new GameMenu().OpenMenu();
         }
         private void OpenSettingsMenu()
         {
