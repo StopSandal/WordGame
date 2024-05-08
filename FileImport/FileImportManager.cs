@@ -85,6 +85,16 @@ namespace WordGame.FileImport
             }
             return words;
         }
+        public static bool HasGameDictionary(Difficulty difficulty)
+        {
+            string dictionaryPath = Path.Combine(
+                appDataPath,
+                AppName,
+                "dictionary",
+                difficulty.ToString()
+                );
+            return new DirectoryInfo(dictionaryPath).GetFiles().Any();
+        }
         private static string GetGameFilePath(Difficulty difficulty) 
         { 
             string dictionaryPath = Path.Combine(
@@ -100,8 +110,8 @@ namespace WordGame.FileImport
         }
         public static IList<string> GetWordDictionary(Difficulty difficulty) 
         {
-            
-            using (var fileStream = new FileStream(GetGameFilePath(difficulty), FileMode.Open))
+            string filePath = GetGameFilePath(difficulty);
+            using (var fileStream = new FileStream(filePath, FileMode.Open))
             {
                 return JsonSerializer.Deserialize<IList<string>>(fileStream);
             }

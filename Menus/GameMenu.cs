@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WordGame.FileImport;
 using WordGame.Game;
 using WordGame.Settings;
 
@@ -49,9 +50,24 @@ namespace WordGame.Menus
         }
         private void StartGame()
         {
+            var settings = GameSettings.GetSettings();
+            if (!FileImportManager.HasGameDictionary(settings.GetDifficulty()))
+            {
+                AbortGame();
+                return;
+            }
             var game = new Game.Game();
             game.Start();
             new EndGameMenu(game.Result).OpenMenu();
+        }
+        private void AbortGame() 
+        {
+            Console.Clear();
+            Console.WriteLine("Game cannot be started");
+            Console.WriteLine("Chosen difficulty doesn't contains any word dictionary.");
+            Console.WriteLine("Change difficulty or import file");
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
         }
     }
 }
