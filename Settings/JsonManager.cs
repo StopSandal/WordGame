@@ -17,7 +17,7 @@ namespace WordGame.Settings
             {
                 Debug.Write(fileName + "Saving to file");
                 string jsonString = JsonConvert.SerializeObject(value, Newtonsoft.Json.Formatting.Indented);
-                File.WriteAllText(fileName, jsonString);
+                File.WriteAllTextAsync(fileName, jsonString);
             }
             catch (Exception ex)
             {
@@ -32,7 +32,7 @@ namespace WordGame.Settings
             {
                 if (File.Exists(fileName))
                 {
-                    string jsonString = File.ReadAllText(fileName);
+                    string jsonString = File.ReadAllTextAsync(fileName).Result;
                     return JsonConvert.DeserializeObject<T>(jsonString);
                 }
                 else
