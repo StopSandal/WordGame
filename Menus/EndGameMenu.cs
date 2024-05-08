@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WordGame.Data;
+using WordGame.Data.EF;
 
 namespace WordGame.Menus
 {
@@ -23,7 +24,7 @@ namespace WordGame.Menus
         {
             base.PrintHeader();
             Console.WriteLine("--------------------------------------------");
-            Console.WriteLine($"| Total score : {_item.Score:D3} | Difficulty: {_item.difficulty}");
+            Console.WriteLine($"| Total score : {_item.Score:D3} | Difficulty: {_item.Difficulty}");
             Console.WriteLine("--------------------------------------------");
             Console.WriteLine("Do you want to save results?");
         }
@@ -41,7 +42,7 @@ namespace WordGame.Menus
         private void SaveTo()
         {
             AskUserName();
-
+            DBManager.AddToDB(_item);
             CloseMenu();
         }
         private void AskUserName()

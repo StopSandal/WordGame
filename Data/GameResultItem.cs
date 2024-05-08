@@ -7,15 +7,15 @@ using WordGame.Settings;
 
 namespace WordGame.Data
 {
-    internal class GameResultItem
+    internal class GameResultItem : IDBItem
     {
-        public Difficulty difficulty {  get; set; }
+        public int ID { get; set; }
+        public Difficulty Difficulty {  get; set; }
         public int Score { get; set; }
         public string PlayerName { get; set; }
-
         public GameResultItem(Difficulty difficulty)
         {
-            this.difficulty = difficulty;
+            this.Difficulty = difficulty;
             Score = 0;
             PlayerName = String.Empty;
         }

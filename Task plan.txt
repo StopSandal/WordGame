@@ -46,7 +46,7 @@
  4. Results
    4.1 Add connection between MS SQl and EF
     * Estimated: 1 h
-    * Real: -
+    * Real: 57 min
    4.2 Menu to see results
     * Estimated: 30 min
     * Real: -
