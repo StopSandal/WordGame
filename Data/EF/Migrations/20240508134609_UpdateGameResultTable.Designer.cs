@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WordGame.Data.EF;
 
@@ -11,9 +12,11 @@ using WordGame.Data.EF;
 namespace WordGame.Migrations
 {
     [DbContext(typeof(WordGameContext))]
-    partial class WordGameContextModelSnapshot : ModelSnapshot
+    [Migration("20240508134609_UpdateGameResultTable")]
+    partial class UpdateGameResultTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

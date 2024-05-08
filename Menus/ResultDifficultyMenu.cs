@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WordGame.Data.EF;
+using WordGame.Results;
 using WordGame.Settings;
 
 namespace WordGame.Menus
@@ -24,17 +26,35 @@ namespace WordGame.Menus
 
         protected override void InitMenuItemList()
         {
+            var context = new WordGameContext();
             AddMenuItem(new MenuItem(
-                "By date",
-                () => { }
+                "Last games",
+                () => {
+                    DisplayResults.DisplayResult(
+                        context.GameResults
+                        .Where(x => x.Difficulty == difficulty)
+                        .OrderByDescending(x => x.dateTime)
+                        .Take(20)
+                        .ToList(),
+                        "Last 20 Games Results"
+                       );
+                }
                 ));
             AddMenuItem(new MenuItem(
-                "By score",
-                () => { }
-                ));
+                "High score",
+                () => {
+                    DisplayResults.DisplayResult(
+                        context.GameResults
+                        .Where(x => x.Difficulty == difficulty)
+                        .OrderByDescending(x => x.Score)
+                        .Take(20)
+                        .ToList(),
+                        "Top 20 Players"
+                       );
+                }
+            ));
             base.InitMenuItemList();
         }
-
         protected override void PrintHeader()
         {
             Console.Clear();
