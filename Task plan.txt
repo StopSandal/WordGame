@@ -42,7 +42,7 @@
     * Real: 16 min
   3.4 Create test files and test system
     * Estimated: 1 h
-    * Real: - 
+    * Real: 15 min 
  4. Results
    4.1 Add connection between MS SQl and EF
     * Estimated: 1 h

@@ -35,7 +35,7 @@ namespace WordGame.Menus
             AddMenuItem(
                 new MenuItem(
                     "Import file",
-                    new ImportMenu().OpenMenu
+                    MenuSingleton<ImportMenu>.OpenMenu
                     ));
             base.InitMenuItemList();
         }

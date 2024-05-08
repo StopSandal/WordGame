@@ -30,19 +30,19 @@ namespace WordGame.Menus
         }
         private void StartGame()
         {
-            new GameMenu().OpenMenu();
+           MenuSingleton<GameMenu>.OpenMenu();
         }
         private void OpenSettingsMenu()
         {
-            new SettingsMenu().OpenMenu();
+            MenuSingleton<SettingsMenu>.OpenMenu();
         }
         private void OpenImportMenu()
         {
-            new FileImportMenu().OpenMenu();
+            MenuSingleton<FileImportMenu>.OpenMenu();
         }
         private void OpenResultsMenu() 
         {
-            new ResultsMenu().OpenMenu(); 
+            MenuSingleton<ResultsMenu>.OpenMenu(); 
         }
     }
 }
