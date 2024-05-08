@@ -41,6 +41,8 @@ namespace WordGame.Game
             Console.SetCursorPosition(0, 1);
             Console.WriteLine("Write this words");
             Console.WriteLine("----------------------------");
+            Console.WriteLine(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, Console.CursorTop-1);
             Console.WriteLine(word);
             Console.WriteLine("----------------------------");
             Console.WriteLine();
