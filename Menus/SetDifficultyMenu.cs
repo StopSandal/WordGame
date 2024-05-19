@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WordGame.Output;
 using WordGame.Settings;
 
 namespace WordGame.Menus
 {
     internal class SetDifficultyMenu : BaseMenu
     {
-        public SetDifficultyMenu()
+        public SetDifficultyMenu(IOutput output) : base(output)
         {
             MenuTitle = "Choose game difficulty";
         }

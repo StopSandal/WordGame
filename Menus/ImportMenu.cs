@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using WordGame.FileImport;
 using WordGame.InputReaders;
+using WordGame.Output;
 using WordGame.Settings;
 
 namespace WordGame.Menus
 {
     internal class ImportMenu : BaseMenu
     {
-        public ImportMenu()
+        public ImportMenu(IOutput output) : base(output)
         {
             MenuTitle = "Choose difficulty of importing file";
         }

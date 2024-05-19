@@ -5,17 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using WordGame.Data;
 using WordGame.Data.EF;
+using WordGame.Output;
 
 namespace WordGame.Menus
 {
     internal class EndGameMenu : BaseMenu
     {
         private readonly GameResultItem _item;
-        private EndGameMenu() 
+        private EndGameMenu(IOutput output) : base(output)
         {
             MenuTitle = "Game end";
         }
-        public EndGameMenu(GameResultItem item) : this()
+        public EndGameMenu(IOutput output,GameResultItem item) : this(output)
         {
             _item = item;
         }
@@ -23,10 +24,10 @@ namespace WordGame.Menus
         protected override void PrintHeader()
         {
             base.PrintHeader();
-            Console.WriteLine("--------------------------------------------");
-            Console.WriteLine($"| Total score : {_item.Score:D3} | Difficulty: {_item.Difficulty}");
-            Console.WriteLine("--------------------------------------------");
-            Console.WriteLine("Do you want to save results?");
+            output.WriteLine("--------------------------------------------");
+            output.WriteLine($"| Total score : {_item.Score:D3} | Difficulty: {_item.Difficulty}");
+            output.WriteLine("--------------------------------------------");
+            output.WriteLine("Do you want to save results?");
         }
         protected override void InitMenuItemList()
         {
@@ -47,8 +48,8 @@ namespace WordGame.Menus
         }
         private void AskUserName()
         {
-            Console.WriteLine("Enter your nickname");
-            _item.PlayerName = Console.ReadLine();
+            output.WriteLine("Enter your nickname");
+            _item.PlayerName = output.ReadLine();
 
         }
     }

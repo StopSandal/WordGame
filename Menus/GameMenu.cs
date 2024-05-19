@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using WordGame.FileImport;
 using WordGame.Game;
+using WordGame.Output;
 using WordGame.Settings;
 
 namespace WordGame.Menus
 {
     internal class GameMenu : BaseMenu
     {
-        public GameMenu()
+        public GameMenu(IOutput output) : base(output)
         {
             MenuTitle = "Game menu";
         }
@@ -19,17 +20,17 @@ namespace WordGame.Menus
         {
             base.PrintHeader();
             var settings = GameSettings.GetSettings();
-            Console.WriteLine("----------------------------------------");
-            Console.WriteLine($"| Word count | Difficulty | Game time |");
-            Console.WriteLine("----------------------------------------");
-            Console.WriteLine(
+            output.WriteLine("----------------------------------------");
+            output.WriteLine($"| Word count | Difficulty | Game time |");
+            output.WriteLine("----------------------------------------");
+            output.WriteLine(
                 String.Format("| {0,-10} | {1,-10} | {2,-9} |"
                 , settings.GetWordCount(),
                 settings.GetDifficulty(),
                 settings.GetGameTime()
                 )
                 );
-            Console.WriteLine("----------------------------------------");
+            output.WriteLine("----------------------------------------");
             
         }
         protected override void InitMenuItemList()
@@ -56,18 +57,19 @@ namespace WordGame.Menus
                 AbortGame();
                 return;
             }
-            var game = new Game.Game();
+
+            var game = new Game.Game(output);
             game.Start();
-            new EndGameMenu(game.Result).OpenMenu();
+            new EndGameMenu(output,game.Result).OpenMenu();
         }
         private void AbortGame() 
         {
-            Console.Clear();
-            Console.WriteLine("Game cannot be started");
-            Console.WriteLine("Chosen difficulty doesn't contains any word dictionary.");
-            Console.WriteLine("Change difficulty or import file");
-            Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
+            output.Clear();
+            output.WriteLine("Game cannot be started");
+            output.WriteLine("Chosen difficulty doesn't contains any word dictionary.");
+            output.WriteLine("Change difficulty or import file");
+            output.WriteLine("Press Enter key to continue");
+            output.ReadLine();
         }
     }
 }

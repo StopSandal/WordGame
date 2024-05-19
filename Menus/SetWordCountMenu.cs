@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WordGame.Output;
 using WordGame.Settings;
 
 namespace WordGame.Menus
 {
     internal class SetWordCountMenu : BaseMenu
     {
-        private readonly List<int> countList = new List<int> { 1, 3, 9 };
-        public SetWordCountMenu()
+        private readonly List<int> countList = new() { 1, 3, 9 };
+        public SetWordCountMenu(IOutput output) : base(output)
         {
             MenuTitle = "Choose word count";
         }

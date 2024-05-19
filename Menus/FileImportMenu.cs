@@ -4,25 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WordGame.FileImport;
+using WordGame.Output;
 
 namespace WordGame.Menus
 {
     internal class FileImportMenu : BaseMenu
     {
-        public FileImportMenu() 
+        public FileImportMenu(IOutput output) : base(output)
         {
-            MenuTitle = "Import menu";
+            MenuTitle = "Import menu" + this.GetHashCode();
         }
         protected override void PrintHeader()
         {
             base.PrintHeader();
-            Console.WriteLine("---------------------");
-            Console.WriteLine("Rules of file import");
-            Console.WriteLine("---------------------");
-            Console.WriteLine(" * File should be .csv extension");
-            Console.WriteLine(" * File should have more than 300 words");
-            Console.WriteLine(" * Words should be more than 1 letter");
-            Console.WriteLine();
+            output.WriteLine("---------------------");
+            output.WriteLine("Rules of file import");
+            output.WriteLine("---------------------");
+            output.WriteLine(" * File should be .csv extension");
+            output.WriteLine(" * File should have more than 300 words");
+            output.WriteLine(" * Words should be more than 1 letter");
+            output.WriteLine();
         }
 
         protected override void InitMenuItemList()

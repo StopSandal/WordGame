@@ -1,18 +1,22 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WordGame.Output;
 
 namespace WordGame.Menus
 {
-    internal static class MenuSingleton<T> where T : class,IMenu, new()
+    internal static class MenuSingleton<T> where T : BaseMenu
     {
-        private static T _menu;
         public static void OpenMenu()
         {
-            _menu ??= new T();
-            _menu.OpenMenu();
+            GetMenu().OpenMenu();
+        }
+        public static T GetMenu()
+        {
+            return WordAppServiceProvider.GetServiceProvider().GetService<T>();
         }
     }
 }

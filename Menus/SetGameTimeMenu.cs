@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WordGame.Output;
 using WordGame.Settings;
 
 namespace WordGame.Menus
 {
     internal class SetGameTimeMenu : BaseMenu
     {
-        private readonly List<int> timesList = new List<int> { 30, 60, 90 };
-        public SetGameTimeMenu()
+        private readonly List<int> timesList = new() { 30, 60, 90 };
+        public SetGameTimeMenu(IOutput output) : base(output)
         {
             MenuTitle = "Choose game time";
         }

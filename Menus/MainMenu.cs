@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WordGame.Output;
 
 namespace WordGame.Menus
 {
     internal class MainMenu : BaseMenu
     {
-        public MainMenu() : base()
+        public MainMenu(IOutput output) : base(output)
         {
             MenuTitle = "Main menu";
         }
@@ -23,7 +24,7 @@ namespace WordGame.Menus
         }
         private void OpenExitMenu()
         {
-            var exitMenu = new BaseMenu("Do you want to close the app?");
+            var exitMenu = new BaseMenu(output,"Do you want to close the app?");
             exitMenu.AddMenuItem(new MenuItem("Yes", () => Environment.Exit(0)));
             exitMenu.AddMenuItem(new MenuItem("No", exitMenu.CloseMenu));
             exitMenu.OpenMenu();

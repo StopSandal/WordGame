@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WordGame.Output;
 using WordGame.Settings;
 
 namespace WordGame.Menus
 {
     internal class ResultsMenu : BaseMenu
     {
-        public ResultsMenu()
+        public ResultsMenu(IOutput output) : base(output)
         {
             MenuTitle = "Results menu";
         }
@@ -21,7 +22,7 @@ namespace WordGame.Menus
                 AddMenuItem(
                         new MenuItem(
                         item.ToString(),
-                        () => new ResultDifficultyMenu().OpenMenu(item)
+                        () => MenuSingleton<ResultDifficultyMenu>.GetMenu().OpenMenu(item)
                         )
                     );
             }

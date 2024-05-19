@@ -3,28 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WordGame.Output;
 
 namespace WordGame.Menus
 {
     internal abstract class ConsoleMenu : IMenu
     {
         protected string MenuTitle;
+        protected IOutput output {  get; }
         public bool IsClosed { get; protected set; }
         protected IList<MenuItem> Items;
 
-        protected ConsoleMenu()
+        protected ConsoleMenu(IOutput output)
         {
+            this.output = output;
             IsClosed = false;
             MenuTitle = "Anonymous menu";
             Items = new List<MenuItem>();
         }
-
-        protected ConsoleMenu(string menuTitle, IList<MenuItem> items) : this()
-        {
-            MenuTitle = menuTitle;
-            Items = items;
-        }
-        protected ConsoleMenu(string menuTitle) : this()
+        protected ConsoleMenu(IOutput output, string menuTitle) : this(output)
         {
             MenuTitle = menuTitle;
         }
@@ -46,11 +43,11 @@ namespace WordGame.Menus
             IsClosed = true;
         }
 
-        public void AddMenuItem(MenuItem item)
+        internal protected void AddMenuItem(MenuItem item)
         {
             Items.Add(item);
         }
-        public void InvokeMenuItemAction(int menuItemIndex) {
+        protected void InvokeMenuItemAction(int menuItemIndex) {
             Items[menuItemIndex].ItemAction();
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WordGame.Data.EF;
+using WordGame.Output;
 using WordGame.Results;
 using WordGame.Settings;
 
@@ -13,7 +14,7 @@ namespace WordGame.Menus
     {
         private Difficulty difficulty = Difficulty.Easy;
 
-        public ResultDifficultyMenu()
+        public ResultDifficultyMenu(IOutput output) : base(output)
         {
             MenuTitle = "Results for";
         }
@@ -33,7 +34,7 @@ namespace WordGame.Menus
                     DisplayResults.DisplayResult(
                         context.GameResults
                         .Where(x => x.Difficulty == difficulty)
-                        .OrderByDescending(x => x.dateTime)
+                        .OrderByDescending(x => x.DateTime)
                         .Take(20)
                         .ToList(),
                         "Last 20 Games Results"
@@ -57,8 +58,8 @@ namespace WordGame.Menus
         }
         protected override void PrintHeader()
         {
-            Console.Clear();
-            Console.WriteLine($"{MenuTitle} {difficulty} difficulty");
+            output.Clear();
+            output.WriteLine($"{MenuTitle} {difficulty} difficulty");
         }
     }
 }
