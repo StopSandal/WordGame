@@ -40,8 +40,14 @@ namespace WordGame.Menus
                 CloseMenu
                 ));
         }
-        private void SaveTo()
+        private async void SaveTo()
         {
+            if (!await DBManager.IsDBAvailable())
+            {
+                PrintError();
+                CloseMenu();
+                return;
+            }
             AskUserName();
             DBManager.AddToDB(_item);
             CloseMenu();
@@ -50,7 +56,12 @@ namespace WordGame.Menus
         {
             output.WriteLine("Enter your nickname");
             _item.PlayerName = output.ReadLine();
-
+        }
+        private void PrintError()
+        {
+            output.WriteLine("Cannot connect to DB to save results");
+            output.WriteLine("Press Enter key to continue...");
+            output.ReadLine();
         }
     }
 }
