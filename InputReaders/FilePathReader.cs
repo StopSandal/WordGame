@@ -1,18 +1,26 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Diagnostics;
 using System.Xml.Serialization;
+using WordGame.Output;
 
 
 namespace WordGame.InputReaders
 {
     internal static class FilePathReader
     {
+        readonly static IOutput output;
+        static FilePathReader()
+        {
+           output = WordAppServiceProvider.GetServiceProvider().GetService<IOutput>();
+        }
+
         public static string GetFilePath()
         {
             DisplayHeader();
 
-            Console.WriteLine("Enter the path to the CSV file:");
-            string csvFilePath = Console.ReadLine();
+            output.WriteLine("Enter the path to the CSV file:");
+            string csvFilePath = output.ReadLine();
             try
             {
                 if (string.IsNullOrEmpty(csvFilePath))
@@ -44,15 +52,15 @@ namespace WordGame.InputReaders
 
         private static void DisplayHeader()
         {
-            Console.Clear();
-            Console.WriteLine("Write full path to file");
-            Console.WriteLine("Example: C:\\Users\\UserName\\file.csv");
+            output.Clear();
+            output.WriteLine("Write full path to file");
+            output.WriteLine("Example: C:\\Users\\UserName\\file.csv");
         }
         private static void DisplayError(string message)
         {
-            Console.WriteLine($"Error: {message}");
-            Console.WriteLine("Press Enter to continue...");
-            Console.ReadLine();
+            output.WriteLine($"Error: {message}");
+            output.WriteLine("Press Enter to continue...");
+            output.ReadLine();
         }
     }
 }

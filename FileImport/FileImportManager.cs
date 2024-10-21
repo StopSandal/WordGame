@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -6,6 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using WordGame.Data;
+using WordGame.Output;
 using WordGame.Settings;
 
 namespace WordGame.FileImport
@@ -14,6 +16,7 @@ namespace WordGame.FileImport
     {
         static readonly string AppName = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
         static readonly string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        static readonly IOutput output = WordAppServiceProvider.GetServiceProvider().GetService<IOutput>();
         public static async Task SaveFile(string filename, Difficulty difficulty)
         {
             try
@@ -40,23 +43,23 @@ namespace WordGame.FileImport
                 }
                 catch (ArgumentException ex)
                 {
-                    Console.WriteLine($"Dictionary error: {ex.Message}");
-                    Console.WriteLine("Press Enter to continue...");
-                    Console.ReadLine();
+                    output.WriteLine($"Dictionary error: {ex.Message}");
+                    output.WriteLine("Press Enter to continue...");
+                    output.ReadLine();
                     return;
                 }
                 using ( var fileStream = new FileStream(filePath,FileMode.OpenOrCreate))
                 {
                     JsonSerializer.Serialize<IList<string>>(fileStream, words);
                 }
-                Console.WriteLine("File was successfully imported");
+                output.WriteLine("File was successfully imported");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error processing dictionary: {ex.Message}");
+                output.WriteLine($"Error processing dictionary: {ex.Message}");
             }
-            Console.WriteLine("Press Enter to continue...");
-            Console.ReadLine();
+            output.WriteLine("Press Enter to continue...");
+            output.ReadLine();
         }
         private static bool IsDictionaryRight(IList<string> dictionary) 
         {
@@ -81,7 +84,7 @@ namespace WordGame.FileImport
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error reading file: {ex.Message}");
+                output.WriteLine($"Error reading file: {ex.Message}");
             }
             return words;
         }

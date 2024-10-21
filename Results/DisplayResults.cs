@@ -5,26 +5,33 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using WordGame.Data;
+using WordGame.Output;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WordGame.Results
 {
     internal static class DisplayResults
     {
+        readonly static IOutput output;
+        static DisplayResults()
+        {
+            output = WordAppServiceProvider.GetServiceProvider().GetService<IOutput>();
+        }
         public static void DisplayResult(IList<GameResultItem> resultItems,string Title)
         {
-            Console.Clear();
-            Console.WriteLine($"{Title} for {resultItems.FirstOrDefault()?.Difficulty}");
-            Console.WriteLine("----------------------------------------------");
-            Console.WriteLine("|    Player    | Score |         Date        |");
-            Console.WriteLine("----------------------------------------------");
+            output.Clear();
+            output.WriteLine($"{Title} for {resultItems.FirstOrDefault()?.Difficulty}");
+            output.WriteLine("----------------------------------------------");
+            output.WriteLine("|    Player    | Score |         Date        |");
+            output.WriteLine("----------------------------------------------");
             foreach(var item in resultItems)
             {
-                Console.WriteLine(String.Format("| {0,-12} | {1,-5} | {2,-19} |", item.PlayerName, item.Score, item.dateTime));
-                Console.WriteLine("----------------------------------------------");
+                output.WriteLine(String.Format("| {0,-12} | {1,-5} | {2,-19} |", item.PlayerName, item.Score, item.DateTime));
+                output.WriteLine("----------------------------------------------");
             }
-            Console.WriteLine();
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();
+            output.WriteLine();
+            output.WriteLine("Press Enter key to continue...");
+            output.ReadLine();
         }
     }
 }

@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WordGame.Output;
 using WordGame.Settings;
 
 namespace WordGame.Menus
 {
     internal class SettingsMenu : BaseMenu
     {
-        //Difficulty
+        public SettingsMenu(IOutput output) : base(output)
+        {
+        }
         protected override void InitMenuItemList()
         {
             AddMenuItem(new MenuItem("Difficulty", OpenSetDifficultyMenu));

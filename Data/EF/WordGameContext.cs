@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace WordGame.Data.EF
 {
-    internal class WordGameContext : DbContext 
+    internal class WordGameContext : DbContext
     {
-        private const string ConnectionString = "Server=DESKTOP-UAUG3OJ;Database=WordGame;Trusted_Connection=True;TrustServerCertificate=True;";
-        public DbSet<GameResultItem> GameResults {  get; set; }
+        //private const string ConnectionString = "Server=DESKTOP-UAUG3OJ;Database=WordGame;Trusted_Connection=True;TrustServerCertificate=True;";
+        public DbSet<GameResultItem> GameResults { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-            optionsBuilder.UseSqlServer(ConnectionString);
+            optionsBuilder.UseInMemoryDatabase("WordGame");
             base.OnConfiguring(optionsBuilder);
         }
     }

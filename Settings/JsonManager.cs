@@ -6,23 +6,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using Microsoft.Extensions.DependencyInjection;
+using WordGame.Output;
 
 namespace WordGame.Settings
 {
     public static class JsonManager
     {
+        readonly static IOutput output;
+        static JsonManager()
+        {
+            output = WordAppServiceProvider.GetServiceProvider().GetService<IOutput>();
+        }
         public static void SaveToFile<T>(string fileName, T value) where T : class
         {
             try
             {
-                Debug.Write(fileName + "Saving to file");
                 string jsonString = JsonConvert.SerializeObject(value, Newtonsoft.Json.Formatting.Indented);
                 File.WriteAllTextAsync(fileName, jsonString);
             }
             catch (Exception ex)
             {
-                Debug.Write(ex.Message);
-                Console.WriteLine($"Unable to save settings: {ex.Message}");
+                output.WriteLine($"Unable to save settings: {ex.Message}");
             }
         }
 
@@ -42,7 +47,7 @@ namespace WordGame.Settings
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in process of reading settings: {ex.Message}");
+                output.WriteLine($"Error in process of reading settings: {ex.Message}");
                 return null;
             }
         }
